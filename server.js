@@ -1,20 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { GoogleGenAI } = require('@google/genai');
+// 👇 修改了这里：引用名字变了
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 允许跨域访问
 app.use(cors());
 app.use(express.json());
 
-// 初始化 Gemini
 const apiKey = process.env.GEMINI_API_KEY;
-const genAI = new GoogleGenAI(apiKey);
+// 👇 修改了这里：初始化名字也变了
+const genAI = new GoogleGenerativeAI(apiKey);
 
 app.post('/api/chat', async (req, res) => {
     try {
@@ -23,9 +23,9 @@ app.post('/api/chat', async (req, res) => {
             return res.status(400).json({ error: 'Prompt is required' });
         }
 
-        // 使用 Gemini 1.5 Flash 模型
+        // 这里保持不变，因为 GoogleGenerativeAI 支持这个写法
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
+        
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();

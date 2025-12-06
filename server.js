@@ -24,7 +24,7 @@ app.post('/api/chat', async (req, res) => {
         }
 
         // 这里保持不变，因为 GoogleGenerativeAI 支持这个写法
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
         
         const result = await model.generateContent(prompt);
         const response = await result.response;
